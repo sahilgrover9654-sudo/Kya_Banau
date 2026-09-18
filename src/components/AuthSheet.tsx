@@ -120,6 +120,29 @@ export function AuthSheet({
               </>
             )}
           </button>
+
+          {/* Local testing option */}
+          <div className="relative flex py-1 items-center">
+            <div className="flex-grow border-t border-[#EBE3D5]"></div>
+            <span className="flex-shrink mx-3 text-[12px] text-[#8C857D] font-medium">or local testing</span>
+            <div className="flex-grow border-t border-[#EBE3D5]"></div>
+          </div>
+
+          <button
+            id="auth-local-btn"
+            type="button"
+            onClick={() => {
+              onSuccess({
+                id: "local-user",
+                name: "Local User",
+                email: "local@kyabanau.app",
+                avatar: "https://api.dicebear.com/7.x/initials/svg?seed=Local+User&backgroundColor=D1654B&textColor=ffffff",
+              });
+            }}
+            className="w-full h-[46px] px-4 rounded-[16px] bg-[#FAF0ED] hover:bg-[#F5E5E0] text-[#D1654B] font-semibold text-[14px] flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
+          >
+            Continue as Local User
+          </button>
         </div>
       </div>
     </div>

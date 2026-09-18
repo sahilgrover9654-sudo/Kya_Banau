@@ -42,7 +42,7 @@ export function parseAuthError(error: any): AuthErrorResult {
       "Sign-in was blocked by Google Workspace admin policy or provider settings in Firebase Console.";
   } else if (code === "auth/unauthorized-domain") {
     message =
-      "This domain is not authorized in Firebase Authentication. Add this app domain to Authorized Domains in the Firebase Console.";
+      "This domain is not authorized in Firebase. If using 127.0.0.1, switch to http://localhost:3000, add localhost to Authorized Domains in Firebase Console, or tap 'Continue as Local User' below.";
   } else if (error?.message) {
     message = error.message;
   }

@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { validateIngredientList, findNonFoodItems } from "./src/utils/ingredientValidator";
 
 dotenv.config();
+dotenv.config({ path: ".env.local", override: true });
 
 const app = express();
 const PORT = 3000;
@@ -72,9 +73,10 @@ async function callGeminiSafe(
 
 let aiClient: GoogleGenAI | null = null;
 function getAI(): GoogleGenAI | null {
-  if (!aiClient && process.env.GEMINI_API_KEY) {
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!aiClient && apiKey && apiKey !== "MY_GEMINI_API_KEY") {
     aiClient = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
+      apiKey,
       httpOptions: {
         headers: {
           "User-Agent": "aistudio-build",
