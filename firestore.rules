@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Event logging collection:
+    // Allow create for ALL users (unauthenticated and authenticated)
+    // Completely deny client-side read, update, and delete
+    match /events/{eventId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // Saved plans collection:
+    // A user may create, read, update, and delete only documents
+    // where user_id matches their own authenticated UID. No cross-user access.
+    match /plans/{planId} {
+      allow create: if request.auth != null && request.resource.data.user_id == request.auth.uid;
+      allow read, update, delete: if request.auth != null && resource.data.user_id == request.auth.uid;
+    }
+
+    // User preference memory collection:
+    match /user_preferences/{userId} {
+      allow create, update, read, delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

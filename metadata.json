@@ -1,0 +1,7 @@
+{
+  "name": "Kya Banau",
+  "description": "Your week's meals, sorted in one tap. Mobile-first meal planning for working people living alone.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "events": {
+      "title": "Events",
+      "description": "Log of user actions, meal generation latency, and errors",
+      "type": "object",
+      "properties": {
+        "event_name": {
+          "type": "string",
+          "enum": [
+            "weekly_plan_generate",
+            "quick_meal_generate",
+            "weekly_plan_failed",
+            "quick_meal_failed",
+            "auth_linked"
+          ]
+        },
+        "anon_id": { "type": "string" },
+        "session_id": { "type": "string" },
+        "auth_state": {
+          "type": "string",
+          "enum": ["signed_in", "anonymous"]
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "latency_ms": { "type": "number" },
+        "model": { "type": "string" },
+        "platform": { "type": "string", "enum": ["mobile", "desktop"] },
+        "viewport": { "type": "string" },
+        "timezone": { "type": "string" },
+        "locale": { "type": "string" },
+        "user_id": { "type": ["string", "null"] },
+        "mock_user_id": { "type": ["string", "null"] },
+        "user_email": { "type": ["string", "null"] },
+        "os": { "type": ["string", "null"] },
+        "browser": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"] },
+        "referrer": { "type": ["string", "null"] },
+        "plan_days": { "type": ["number", "null"] },
+        "input_text": { "type": ["string", "null"] },
+        "regenerate_count": { "type": ["number", "null"] },
+        "ingredients_input": { "type": ["string", "null"] },
+        "suggestions_returned": { "type": ["number", "null"] },
+        "error_type": {
+          "type": ["string", "null"],
+          "enum": ["api_error", "parse_error", "timeout", "empty_response", null]
+        },
+        "auth_provider": { "type": ["string", "null"] }
+      },
+      "required": [
+        "event_name",
+        "anon_id",
+        "session_id",
+        "auth_state",
+        "created_at",
+        "latency_ms",
+        "model",
+        "platform",
+        "viewport",
+        "timezone",
+        "locale"
+      ]
+    },
+    "plans": {
+      "title": "Saved Plans",
+      "description": "User saved meal plans with user ownership and timestamp",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "plan": { "type": "array" },
+        "preferences": { "type": ["object", "null"] },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["user_id", "plan"]
+    },
+    "user_preferences": {
+      "title": "User Preferences Memory",
+      "description": "User preference memory across sessions: onboarding picks, locked items, edited dishes, and rejected dishes",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "onboarding_picks": { "type": "array", "items": { "type": "string" } },
+        "locked_items": { "type": "array", "items": { "type": "string" } },
+        "edited_dishes": { "type": "array", "items": { "type": "string" } },
+        "rejected_dishes": { "type": "array", "items": { "type": "string" } },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["user_id"]
+    }
+  }
+}
